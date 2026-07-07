@@ -7,50 +7,31 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="container">
-      <div id="header">
-        <input
-          type="text"
-          placeholder="Enter anime title: (Example: One piece)"
-        />
-        <div id="buttons">
-          <button>TV</button>
-          <button>Movie</button>
-        </div>
+    <div class="container">
+      <div class="inputElements">
+        <input type="text" id="titleInput" placeholder="One Piece" />
+        <button id="tvBtn">TV</button>
+        <button id="movieBtn">Movie</button>
+        <button id="ovaBtn">OVA</button>
       </div>
-      <div id="boxes">
-        <div id="image-box"></div>
-        <div id="info-box">
-          <h3>One Piece</h3>
-          <b>English Title:</b> One Piece<br />
-          <b>Japanese Title:</b> ONE PIECE<br />
-          <b>Released Date:</b> 1999-10-20<br />
-          <b>Score:</b> ⭐8.73<br />
-          <b>Episodes:</b> Unavailable<br />
-          <b>Source:</b> Manga<br />
-          <b>Status:</b> Currently Airing<br />
-          <b>MAL ID:</b> 21<br /><br />
-          <p>
-            <b>Synopsis:</b> Barely surviving in a barrel after passing through
-            a terrible whirlpool at sea, carefree Monkey D. Luffy ends up aboard
-            a ship under attack by fearsome pirates. Despite being a
-            naive-looking teenager, he is not to be underestimated. Unmatched in
-            battle, Luffy is a pirate himself who resolutely pursues the coveted
-            One Piece treasure and the King of the Pirates title that comes with
-            it. The late King of the Pirates, Gol D. Roger, stirred up the world
-            before his death by disclosing the whereabouts of his hoard of
-            riches and daring everyone to obtain it. Ever since then, countless
-            powerful pirates have sailed dangerous seas for the prized One Piece
-            only to never return. Although Luffy lacks a crew and a proper ship,
-            he is endowed with a superhuman ability and an unbreakable spirit
-            that make him not only a formidable adversary but also an
-            inspiration to many. As he faces numerous challenges with a big
-            smile on his face, Luffy gathers one-of-a-kind companions to join
-            him in his ambitious endeavor, together embracing perils and wonders
-            on their once-in-a-lifetime adventure. [Written by MAL Rewrite]
-          </p>
+
+      <div class="resultElements">
+        <div id="imageResult"></div>
+        <div id="infoResult">
+          <h3><span id="title"></span></h3>
+          <p><b>English Title:</b> <span id="engTitle"></span></p>
+          <p><b>Japanese Title:</b> <span id="japTitle"></span></p>
+          <p><b>Released Date:</b> <span id="releasedDate"></span></p>
+          <p><b>Score:</b> <span id="score"></span></p>
+          <p><b>Episodes:</b> <span id="episodes"></span></p>
+          <p><b>Source:</b> <span id="source"></span></p>
+          <p><b>Status:</b> <span id="status"></span></p>
+          <p><b>MAL ID:</b> <span id="malId"></span></p>
+          <br />
+          <p><b>Synopsis:</b> <span id="synopsis"></span></p>
         </div>
       </div>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
