@@ -1,9 +1,16 @@
+const baseUrl = "https://api.jikan.moe/v4/anime";
+
 const tvBtn = document.getElementById("tvBtn");
 const movieBtn = document.getElementById("movieBtn");
 const ovaBtn = document.getElementById("ovaBtn");
-const baseUrl = "https://api.jikan.moe/v4/anime";
-const imageResult = document.getElementById("imageResult");
+
+const imageResult = document.querySelector("#imageResult");
+const imageDialog = document.querySelector("dialog");
+const dialogContainer = document.querySelector(".dialogContainer");
+const imageUrl = document.getElementById("imageUrl");
+const infoResult = document.querySelector("#infoResult");
 const infoTitle = document.getElementById("title");
+
 const buttons = [tvBtn, movieBtn, ovaBtn];
 let type;
 
@@ -50,6 +57,18 @@ for(let button of buttons){
 }
 
 
+imageResult.addEventListener("click", event => {
+    imageDialog.showModal();
+})
+
+
+imageDialog.addEventListener("click", (e) => {
+    if(!dialogContainer.contains(e.target)){
+        imageDialog.close();
+    }
+})
+
+
 async function getAnimeData(url){
     const response = await fetch(url);
     if(!response.ok){
@@ -71,6 +90,7 @@ async function getAnimeData(url){
             releasedDate: (rawDate) ? rawDate.split("T")[0] : "Unavailable",
             score: anime.score ?? "Unavailable",
             episodes: anime.episodes ?? "Unavailable",
+            themes: anime.themes[0]?.name ?? "Unavailable",
             source: anime.source ?? "Unavailable",
             status: anime.status ?? "Unavailable",
             malId: anime.mal_id ?? "Unavailable",
@@ -88,23 +108,29 @@ function displayAnimeInfo(data){
     let releasedDate = document.getElementById("releasedDate");
     let score = document.getElementById("score");
     let episodes = document.getElementById("episodes");
+    let themes = document.getElementById("themes");
     let source = document.getElementById("source");
     let status = document.getElementById("status");
     let malId = document.getElementById("malId");
     let synopsis = document.getElementById("synopsis");
 
     if(data.imageUrl !== "Unavailable"){
+        document.body.classList.add("setBodyBackgroundImage")
         document.body.style.backgroundImage = `url(${data.imageUrl})`;
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
-        document.body.style.backgroundAttachment = "fixed";
+
+        imageResult.classList.add("setElementBackgroundImage");
+        imageResult.style.backgroundImage = `url(${data.imageUrl})`;
+
+        imageUrl.href = data.imageUrl;
+        imageUrl.target = "_blank";
+    }
+    else{
+        document.body.style.backgroundImage = "";
+        imageResult.style.backgroundImage = "";
+        imageUrl.href = "";
+        imageUrl.target = "_self";
     }
 
-    imageResult.style.backgroundImage = `url(${data.imageUrl})`;
-    imageResult.style.backgroundRepeat = "no-repeat";
-    imageResult.style.backgroundSize = "cover";
-    imageResult.style.backgroundPosition = "center";
 
     title.textContent = data.title;
     title.style.color = "hsl(2, 84%, 57%)";
@@ -114,11 +140,11 @@ function displayAnimeInfo(data){
     releasedDate.textContent = data.releasedDate;
     score.textContent = "⭐ " + data.score;
     episodes.textContent = data.episodes;
+    themes.textContent = data.themes;
     source.textContent = data.source;
     status.textContent = data.status;
     malId.textContent = data.malId;
     synopsis.textContent = data.synopsis;
-
 }
 
 
@@ -151,4 +177,6 @@ function clearContents(){
     span.textContent = "";
     });
     imageResult.style.backgroundImage = "";
+    imageUrl.href = "";
+    imageUrl.target = "_self";
 }
